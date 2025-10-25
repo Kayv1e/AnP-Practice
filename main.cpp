@@ -1,4 +1,13 @@
+#include <climits>
 #include <iostream>
+
+bool isOverflowed(unsigned n)
+{
+  if (n > 0 && n > UINT_MAX / n) {
+    return 1;
+  }
+  return 0;
+}
 
 bool isPyth(unsigned a, unsigned b, unsigned c)
 {
@@ -17,6 +26,10 @@ int main()
 
   while (std::cin >> a) {
     count += isPyth(a, b, c) ? 1 : 0;
+    if (isOverflowed(a) || isOverflowed(b) || isOverflowed(c)) {
+      std::cerr << "Unsigned integer overflow\n";
+      return 2;
+    }
     c = b;
     b = a;
   }
